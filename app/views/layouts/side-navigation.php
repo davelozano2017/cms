@@ -46,6 +46,13 @@
 					<li class="has-sub <?=$title == 'Customer' ? 'active' : ''?>"> <a href="<?=site_url('customer')?>"><span>Customer</span></a></li>
 					<li class="has-sub <?=$title == 'Order' ? 'active' : ''?>"> <a href="<?=site_url('order')?>"><span>Order</span></a></li>
 					<li class="has-sub <?=$title == 'Sales' ? 'active' : ''?>"> <a href="<?=site_url('sales')?>"><span>Sales</span></a></li>
+					<li class="has-sub <?=$title == 'Products' ? 'active' : ''?><?=$title == 'Categories' ? 'active' : ''?> ">
+					<a href="javascript:;"><b class="caret"></b><span>Content Management</span></a>
+						<ul class="sub-menu">
+						    <li class=" <?=$title == 'Products' ? 'active' : ''?>"><a href="<?=site_url('products')?>">Products</a></li>
+						    <li class=" <?=$title == 'Categories' ? 'active' : ''?>" ><a href="<?=site_url('categories')?>">Categories</a></li>
+						</ul>
+					</li>
 				</ul>
 				<!-- end sidebar nav -->
 			</div>

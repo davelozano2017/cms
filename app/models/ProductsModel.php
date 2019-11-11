@@ -54,8 +54,23 @@ class ProductsModel extends Model {
         redirect('order','Transaction has been copleted');
     }
 
+    public function AddProducts($data) {
+        if($this->db->has('products', ['products_name' => $data['products_name']])) {
+            redirect('products',$data['products_name'].' already exist.');
+        } else {
+            $this->db->insert('products',$data);
+            redirect('products',$data['products_name'].' has been added.');
+        }
+    }
+
+    public function UpdateProductsByProductsId($data) {
+        $this->db->update('products',$data,['products_id' => $data['products_id']]);
+        redirect('products/view/'.encode($data['products_id']),$data['products_name'].' has been updated.');
+
+    }
+
     public function GetProductsUsingId($products_id) {
-        return $this->db->select('products','*',['products_id' => $products_id]);
+        return $this->db->select('products', ["[>]categories" => ["categories_id" => "categories_id"]],'*',['products_id' => $products_id]);
     }
 
 }
