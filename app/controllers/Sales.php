@@ -16,6 +16,9 @@ class Sales extends Controller {
 
   public function sales() {
     $data['title'] = 'Sales';
+    $query = $this->model->use('SalesModel')->GetAllTransactions();
+    dd($query);
+    $data['result'] = $show;
     $data['customers'] = $this->model->use('AccountModel')->GetUserByRoles('Customer');
     $data['user'] = $this->model->use('AccountModel')->GetUserById($_SESSION['accounts_id']);
     $this->load->view('layouts/header',$data);
@@ -32,6 +35,7 @@ class Sales extends Controller {
     $row = $this->model->use('AccountModel')->GetAccountsByAccountsId($accounts_id);
 
     $transactionQuery = $this->model->use('SalesModel')->GetSalesById($accounts_id);
+    $data['user'] = $this->model->use('AccountModel')->GetUserById($accounts_id);
     if($transactionQuery == null) {
       redirect('sales');
     } else {
@@ -41,6 +45,7 @@ class Sales extends Controller {
           'name' => $row[0]['name'],
           'products_name' => $prow[0]['products_name'] ,
           'quantity' => $trow['quantity'],
+          'date' => $trow['date'],
           'products_price' => $prow[0]['products_price'],
           'line_total' => $prow[0]['products_price'] * $trow['quantity'],
         );

@@ -20,12 +20,11 @@
                 <div class="card-body p-0">
                     <div class="row p-3">
                         <div class="col-md-6">
-                            <h4>John David Lozano</h4>
+                            <h4><?=$user[0]['name']?></h4>
                         </div>
 
                         <div class="col-md-6" style="text-align:right">
-                            <?php $date = date('m/d/y h:i A')?>
-                            <h4><?=date('F d, Y g:i A',strtotime($date))?></h4>
+                            <h4><?=date('F d, Y g:i A',strtotime($result[0]['date']))?></h4>
                         </div>
                     </div>
                     <div class="row p-2">

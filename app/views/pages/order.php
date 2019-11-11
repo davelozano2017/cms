@@ -25,7 +25,7 @@
 													<th class="text-nowrap">Category</th>
 													<th class="text-nowrap">Price</th>
 													<th class="text-nowrap" width="1%">Stocks</th>
-													<th class="text-nowrap">Action</th>
+													<th class="text-nowrap"></th>
 											</tr>
 									</thead>
 									<tbody>

@@ -46,7 +46,7 @@
 											<tr>
 													<th width="1%">#</th>
 													<th class="text-nowrap">Category</th>
-													<th class="text-nowrap">Action</th>
+													<th class="text-nowrap"></th>
 											</tr>
 									</thead>
 									<tbody>
@@ -54,7 +54,7 @@
 											<tr>
 												<td width="1%" class="f-s-600 text-inverse"><?=$i++?></td>
 												<td><?=$row['category_name']?></td>
-												<td style="width:1%;text-align:center"><a href="<?=site_url('categories/view/'.encode($row['categories_id']))?>">View</a></td>
+												<td style="width:1%;text-align:center"><a class="btn btn-primary" href="<?=site_url('categories/view/'.encode($row['categories_id']))?>"><i class="fa fa-eye"></a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

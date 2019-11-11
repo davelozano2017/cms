@@ -69,7 +69,7 @@
 													<th class="text-nowrap">Address</th>
 													<th class="text-nowrap">Contact</th>
 													<th class="text-nowrap">Email</th>
-													<th class="text-nowrap">Action</th>
+													<th class="text-nowrap"></th>
 											</tr>
 									</thead>
 									<tbody>
@@ -80,7 +80,7 @@
 												<td><?=$row['address']?></td>
 												<td><?=$row['email']?></td>
 												<td><?=$row['contact']?></td>
-												<td style="width:1%;text-align:center"><a href="<?=site_url('customer/view/'.encode($row['accounts_id']))?>">View</a></td>
+												<td style="width:1%;text-align:center"><a class="btn btn-primary" href="<?=site_url('customer/view/'.encode($row['accounts_id']))?>"><i class="fa fa-eye"></i></a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

@@ -79,7 +79,7 @@
 													<th class="text-nowrap">Category</th>
 													<th class="text-nowrap" width=1%>Price</th>
 													<th class="text-nowrap" width=1%>Stocks</th>
-													<th class="text-nowrap">Action</th>
+													<th class="text-nowrap"></th>
 											</tr>
 									</thead>
 									<tbody>
@@ -90,7 +90,7 @@
 												<td><?=$row['category_name']?></td>
 												<td>&#x20b1;<?=number_format($row['products_price'],2)?></td>
 												<td><?=$row['products_stocks']?></td>
-												<td style="width:1%;text-align:center"><a href="<?=site_url('products/view/'.encode($row['products_id']))?>">View</a></td>
+												<td style="width:1%;text-align:center"><a class="btn btn-primary" href="<?=site_url('products/view/'.encode($row['products_id']))?>"><i class="fa fa-eye"></i></a></td>
 											</tr>
 										<?php } ?>
 									</tbody>
