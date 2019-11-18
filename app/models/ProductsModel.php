@@ -10,27 +10,33 @@ class ProductsModel extends Model {
         return $this->db->select('products', ["[>]categories" => ["categories_id" => "categories_id"]],'*');
     } 
 
-    public function GetProductsById($products_id) {
-        $query = $this->db->select('products','*',['products_id' => $products_id]);
-        // unset($_SESSION['cart']);
-        if($_SESSION['cart'][$products_id]['products_id'] == $products_id) {
-            $_SESSION['cart'][$products_id] = array(
+    public function GetProductsById($data) {
+        $query = $this->db->select('products','*',['products_id' => $data['products_id']]);
+        if($_SESSION['cart'][$data['products_id']]['products_id'] == $data['products_id']) {
+            $_SESSION['cart'][$data['products_id']] = array(
                 'products_id'      => $query[0]['products_id'],
                 'products_name'    => $query[0]['products_name'],
                 'products_price'    => $query[0]['products_price'],
                 'products_stocks'   => $query[0]['products_stocks'],
-                'products_quantity' => $_SESSION['cart'][$products_id]['products_quantity'] += 1
+                'products_quantity' => $_SESSION['cart'][$data['products_id']]['products_quantity'] += $data['quantity']
             );
+            redirect('order',$query[0]['products_name'].' has been added to you cart.');
         } else {
-            $_SESSION['cart'][$products_id] = array(
-                'products_id'      => $query[0]['products_id'],
-                'products_name'    => $query[0]['products_name'],
-                'products_price'    => $query[0]['products_price'],
-                'products_stocks'   => $query[0]['products_stocks'],
-                'products_quantity' => 1
-            );
+
+            if($query[0]['products_stocks'] < $data['quantity']) {
+                redirect('order','insufficient stocks');
+            } else {
+                $_SESSION['cart'][$data['products_id']] = array(
+                    'products_id'      => $query[0]['products_id'],
+                    'products_name'    => $query[0]['products_name'],
+                    'products_price'    => $query[0]['products_price'],
+                    'products_stocks'   => $query[0]['products_stocks'],
+                    'products_quantity' => $data['quantity']
+                );
+                redirect('order',$query[0]['products_name'].' has been added to you cart.');
+            }
+           
         }
-        redirect('order',$query[0]['products_name'].' has been added to you cart.');
     }
 
     public function CompleteTransaction($accouts_id) {

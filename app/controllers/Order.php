@@ -26,9 +26,12 @@ class Order extends Controller {
     $this->load->view('layouts/scripts',$data);
   }
 
-  public function AddOrUpdate($id) {
-    $products_id = decode($id);
-    $query = $this->model->use('ProductsModel')->GetProductsById($products_id);
+  public function AddOrUpdate() {
+    $data = array(
+      'products_id' => post('products_id'),
+      'quantity' => post('quantity')
+    );
+    $query = $this->model->use('ProductsModel')->GetProductsById($data);
 
   }
 

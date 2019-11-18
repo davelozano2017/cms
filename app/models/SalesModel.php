@@ -14,7 +14,7 @@ class SalesModel extends Model {
         return $this->db->select('transactions', [
             "[>]products" => ["transactions.products_id" => "products_id"],
             "[>]accounts" => ["accounts_id" => "accounts_id"],
-        ],'*',['GROUP' => ['reference']]);
+        ],'*',['GROUP' => ['accounts.accounts_id']]);
     } 
 
     public function GetTransactionsByAccountsId($accounts_id) {

@@ -25,6 +25,7 @@
 													<th class="text-nowrap">Category</th>
 													<th class="text-nowrap">Price</th>
 													<th class="text-nowrap" width="1%">Stocks</th>
+													<th class="text-nowrap">Quantity</th>
 													<th class="text-nowrap"></th>
 											</tr>
 									</thead>
@@ -36,7 +37,10 @@
 												<td><?=$row['category_name']?></td>
 												<td>&#x20b1;<?=number_format($row['products_price'],2)?></td>
 												<td><?=$row['products_stocks']?></td>
-												<td style="width:1%;text-align:center"><a class="btn btn-primary" href="<?=site_url('order/AddOrUpdate/'.encode($row['products_id']))?>"><i class="fa fa-cart-plus"></i></a></td>
+												<td>
+													<input style="width:100%" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" id="quantity<?=($row['products_id'])?>" class="form-control" name="quantity" value=1>
+												</td>
+												<td style="width:1%;text-align:center"><button type="submit" onclick="addToCart(<?=$row['products_id']?>)" class="btn btn-primary"><i class="fa fa-cart-plus"></i></button></td>
 											</tr>
 										<?php } ?>
 									</tbody>

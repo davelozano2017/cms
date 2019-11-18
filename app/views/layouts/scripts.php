@@ -34,6 +34,40 @@
 			Highlight.init();
 		});
 
+
+		function addToCart(products_id) {
+			var quantity = $('#quantity'+products_id).val();
+			$.ajax({
+				type: 'POST',
+				url: '<?=site_url('order/AddOrUpdate')?>',
+				data : {
+					'products_id' : products_id,
+					'quantity' : quantity
+				},success:function(data) {
+					 location.href='order';
+				}
+			}) 
+
+			function validate() {
+				alert(2)
+				var theEvent = evt || window.event;
+
+				// Handle paste
+				if (theEvent.type === 'paste') {
+						key = event.clipboardData.getData('text/plain');
+				} else {
+				// Handle key press
+						var key = theEvent.keyCode || theEvent.which;
+						key = String.fromCharCode(key);
+				}
+				var regex = /[0-9]|\./;
+				if( !regex.test(key) ) {
+					theEvent.returnValue = false;
+					if(theEvent.preventDefault) theEvent.preventDefault();
+				}
+			}
+			
+		}
 	</script>
 </body>
 </html>
