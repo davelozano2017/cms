@@ -17,10 +17,23 @@ class Sales extends Controller {
   public function sales() {
     $data['title'] = 'Sales';
     $query = $this->model->use('SalesModel')->GetAllTransactions();
-    dd($query);
-    $data['result'] = $show;
     $data['customers'] = $this->model->use('AccountModel')->GetUserByRoles('Customer');
     $data['user'] = $this->model->use('AccountModel')->GetUserById($_SESSION['accounts_id']);
+    $query = $this->model->use('SalesModel')->GetAllTransactions();
+    foreach($query as $row) {
+    $totalSales = 0;
+    $queryA = $this->model->use('SalesModel')->GetTransactionsByAccountsId($row['accounts_id']);
+    foreach($queryA as $rA) {
+      $totalSales += $rA['products_price'] * $rA['quantity'];
+    }
+      $show[] = array(
+        'allTransaction' => $row, 
+        'totalSales' => $totalSales
+      );
+    } 
+
+    $data['result'] = $show;
+    
     $this->load->view('layouts/header',$data);
     $this->load->view('layouts/side-navigation',$data);
     $this->load->view('pages/sales',$data);
@@ -28,12 +41,11 @@ class Sales extends Controller {
     $this->load->view('layouts/scripts',$data);
   }
 
-  public function result() {
+  public function result($id) {
     $data['title'] = 'Sales';
     $data['customers'] = $this->model->use('AccountModel')->GetUserByRoles('Customer');
-    $accounts_id = decode(post('accounts_id'));
+    $accounts_id = decode($id);
     $row = $this->model->use('AccountModel')->GetAccountsByAccountsId($accounts_id);
-
     $transactionQuery = $this->model->use('SalesModel')->GetSalesById($accounts_id);
     $data['user'] = $this->model->use('AccountModel')->GetUserById($accounts_id);
     if($transactionQuery == null) {

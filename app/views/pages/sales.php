@@ -21,21 +21,18 @@
 								<thead>
 										<tr>
 												<th width=1% class="border-0 text-uppercase small font-weight-bold">#</th>
-												<th class="border-0 text-uppercase small font-weight-bold">Date</th>
 												<th class="border-0 text-uppercase small font-weight-bold">Name</th>
-												<th class="border-0 text-uppercase small font-weight-bold">Total Sales</th>
+												<th width=1% class="border-0 text-uppercase small font-weight-bold">Total</th>
 												<th width=1% class="border-0 text-uppercase small font-weight-bold"></th>
 										</tr>
 								</thead>
 								<tbody>
-									<?php $total=0; $i=1; foreach($result as $key => $value) { ?> 
-											<!-- <?php $total += $value['line_total'];?> -->
+									<?php $total=0; $i=1; foreach($result as $row) { ?> 
 										<tr>
 												<td><?=$i++?></td>
-												<td><?=date('F d, Y g:i A',strtotime($value['date']))?></td>
-												<td><?=$value['name']?></td>
-												<td><?=$value['reference']?></td>
-												<td><a href="" class="btn btn-primary"><i class="fa fa-print"></i></a></td>
+												<td><?=$row['allTransaction']['name']?></td>
+												<td>&#x20b1;<?=number_format($row['totalSales'],2)?></td>
+												<td><a href="<?=site_url('sales/result/'.encode($row['allTransaction']['accounts_id']))?>" class="btn btn-primary"><i class="fa fa-print"></i></a></td>
 										</tr>
 									<?php } ?>
 								</tbody>

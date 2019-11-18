@@ -73,6 +73,12 @@ class ProductsModel extends Model {
         return $this->db->select('products', ["[>]categories" => ["categories_id" => "categories_id"]],'*',['products_id' => $products_id]);
     }
 
+    public function GetProductTotalPrice($products_id) {
+        return $this->db->select('products','*',['products_id' => $products_id]);
+    }
+
+
+
 }
 
 
