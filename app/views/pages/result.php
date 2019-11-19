@@ -20,11 +20,11 @@
                 <div class="card-body p-0">
                     <div class="row p-3">
                         <div class="col-md-6">
-                            <h4><?=$user[0]['name']?></h4>
+                            <h4><?=$user[0]['name'].' (#'.$result[0]['reference'].')'?></h4>
                         </div>
 
                         <div class="col-md-6" style="text-align:right">
-                            <h4><?=date('F d, Y g:i A',strtotime($result[0]['date']))?></h4>
+                            <h4><?=date('F d, Y',strtotime($result[0]['date']))?></h4>
                         </div>
                     </div>
                     <div class="row p-2">

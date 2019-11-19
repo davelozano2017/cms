@@ -41,20 +41,47 @@ class Sales extends Controller {
     $this->load->view('layouts/scripts',$data);
   }
 
-  public function result($id) {
+  public function view($accounts_id) {
+    $data['title'] = 'Sales';
+    $query = $this->model->use('SalesModel')->GetAllTransactions();
+    $data['customers'] = $this->model->use('AccountModel')->GetUserByRoles('Customer');
+    $data['user'] = $this->model->use('AccountModel')->GetUserById($_SESSION['accounts_id']);
+    $query = $this->model->use('SalesModel')->GetAllTransactionsUsingId($accounts_id);
+    foreach($query as $row) {
+    $totalSales = 0;
+    $queryA = $this->model->use('SalesModel')->GetTransactionsByAccountsId($row['accounts_id']);
+    foreach($queryA as $rA) {
+      $totalSales += $rA['products_price'] * $rA['quantity'];
+    }
+      $show[] = array(
+        'allTransaction' => $row, 
+        'totalSales' => $totalSales
+      );
+    } 
+
+    $data['result'] = $show;
+    
+    $this->load->view('layouts/header',$data);
+    $this->load->view('layouts/side-navigation',$data);
+    $this->load->view('pages/sales/view',$data);
+    $this->load->view('layouts/footer',$data);
+    $this->load->view('layouts/scripts',$data);
+  }
+
+
+  public function result($ref) {
     $data['title'] = 'Sales';
     $data['customers'] = $this->model->use('AccountModel')->GetUserByRoles('Customer');
-    $accounts_id = decode($id);
-    $row = $this->model->use('AccountModel')->GetAccountsByAccountsId($accounts_id);
-    $transactionQuery = $this->model->use('SalesModel')->GetSalesById($accounts_id);
-    $data['user'] = $this->model->use('AccountModel')->GetUserById($accounts_id);
+    $reference = decode($ref);
+    $transactionQuery = $this->model->use('SalesModel')->GetSalesByReference($reference);
+    $data['user'] = $this->model->use('AccountModel')->GetUserById($transactionQuery[0]['accounts_id']);
     if($transactionQuery == null) {
       redirect('sales');
     } else {
       foreach($transactionQuery as $trow) {
         $prow = $this->model->use('ProductsModel')->GetProductsUsingId($trow['products_id']);
         $show[] = array(
-          'name' => $row[0]['name'],
+          'reference' => $reference,
           'products_name' => $prow[0]['products_name'] ,
           'quantity' => $trow['quantity'],
           'date' => $trow['date'],

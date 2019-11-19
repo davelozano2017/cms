@@ -8,7 +8,7 @@
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Sales</h1>
+			<h1 class="page-header"><?=$result[0]['allTransaction']['name']?></h1>
 			<!-- end page-header -->
 			
 				<?= !isset($_SESSION['message']) ? '' : '<div class="alert bg-info text-white alert-styled-left alert-dismissible"><button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>'.$_SESSION['message'].'</a></div>'; unset($_SESSION['message']);?>  
@@ -30,9 +30,9 @@
 									<?php $total=0; $i=1; foreach($result as $row) { ?> 
 										<tr>
 												<td><?=$i++?></td>
-												<td><?=$row['allTransaction']['name']?></td>
-												<td>&#x20b1;<?=number_format($row['totalSales'],2)?></td>
-												<td><a href="<?=site_url('sales/view/'.encode($row['allTransaction']['accounts_id']))?>" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
+												<td><?=$row['allTransaction']['products_name']?></td>
+												<td><?=$row['allTransaction']['reference']?></td>
+												<td><a href="<?=site_url('sales/result/'.encode($row['allTransaction']['reference']))?>" class="btn btn-primary"><i class="fa fa-print"></i></a></td>
 										</tr>
 									<?php } ?>
 								</tbody>
